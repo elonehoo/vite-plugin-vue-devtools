@@ -90,6 +90,12 @@ export const builtinTabs: BuiltinTab[] = [
     icon: 'i-carbon-document',
     group: 'advanced',
   },
+  {
+    path: 'request',
+    title: 'Request',
+    icon: 'i-carbon-cloud',
+    group: 'advanced',
+  },
 ]
 
 export const DEFAULT_TAB_GROUP: AllTabGroup = 'ungrouped'
