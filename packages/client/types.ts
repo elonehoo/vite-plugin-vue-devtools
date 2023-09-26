@@ -121,3 +121,10 @@ export interface ComponentTreeNode {
   autoOpen: boolean
   meta?: any
 }
+
+export type ServerRouteInputType = 'string' | 'number' | 'boolean' | 'file' | 'date' | 'time' | 'datetime-local'
+export interface ServerRouteInput {
+  key: string
+  value: any
+  type?: ServerRouteInputType
+}

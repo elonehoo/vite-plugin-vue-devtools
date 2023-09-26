@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { Pane, Splitpanes } from 'splitpanes'
+import type { ServerRouteInput } from '../types'
+import { ServerRouteInputType } from '../types'
+
+const [DefineDefaultInputs, UseDefaultInputs] = createReusableTemplate()
 
 const requestMethodClass: Record<string, string> = {
   get: 'bg-green-400:10 text-green-400',
@@ -46,20 +50,28 @@ const tabs = ref([
     slug: 'headers',
     length: 1,
   },
-  {
-    name: 'Cookies',
-    slug: 'cookies',
-  },
 ])
 
 const ServerRouteTabIcons: Record<string, string> = {
-  snippet: 'i-carbon-code',
   headers: 'i-carbon-html-reference',
-  cookies: 'i-carbon-cookie',
   params: 'i-carbon-text-selection',
   query: 'i-carbon-help',
   body: 'i-carbon-document',
 }
+
+const routeInputs = reactive({
+  query: [{ key: '', value: '', type: 'string' }] as ServerRouteInput[],
+  body: [{ key: '', value: '', type: 'string' }] as ServerRouteInput[],
+  headers: [{ key: 'Content-Type', value: 'application/json', type: 'string' }] as ServerRouteInput[],
+})
+
+type RouteInputs = keyof typeof routeInputs
+const currentParams = computed({
+  get: () => routeInputs[activeTab.value as RouteInputs],
+  set: (value: any) => {
+    routeInputs[activeTab.value as RouteInputs] = value
+  },
+})
 </script>
 
 <template>
@@ -109,6 +121,7 @@ const ServerRouteTabIcons: Record<string, string> = {
           </VDButton>
           <div flex-auto />
         </div>
+        <DefineDefaultInputs />
       </div>
     </Pane>
   </Splitpanes>
